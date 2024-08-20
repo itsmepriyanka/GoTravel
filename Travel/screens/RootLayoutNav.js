@@ -34,15 +34,7 @@ export default function RootLayoutNav() {
           tabBarIcon: () => <Ionicons name={"home"} size={20} />,
           // tabBarBadge: 3,
         }}/>
-        <Tab.Screen
-          name="Search"
-          component={Search}
-          options={{
-            // tabBarLabel: "My Profile",
-            tabBarIcon: () => <Ionicons name={"search"} size={20} />,
-            // tabBarBadge: 3,
-          }}
-        />
+       
         <Tab.Screen 
           name="category" 
           component={Category} 
@@ -50,16 +42,7 @@ export default function RootLayoutNav() {
             // tabBarLabel: "My Profile",
             tabBarIcon: () => <Ionicons name={"book"} size={20} />,
             // tabBarBadge: 3,
-          }}/>
-        <Tab.Screen
-          name="Book mark"
-          component={Bookmarks}
-          options={{
-            tabBarLabel: "Bookmarks",
-            tabBarIcon: () => <Ionicons name={"bookmark"} size={20} />,
-            tabBarBadge: 3,
-          }}
-        />
+          }}/>        
         <Tab.Screen
           name="Profile"
           component={Profile}

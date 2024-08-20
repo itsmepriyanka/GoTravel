@@ -7,10 +7,14 @@ import { Place } from "./placeTypes";
         type:String,
         required:true,
     },
+    location:{
+        type:String,
+        required:true,
+    },
     agency:{
         type:mongoose.Schema.Types.ObjectId,
         ref: "User", 
-        // required:true,
+        required:true,
     },
     coverImage:{
         type:String,

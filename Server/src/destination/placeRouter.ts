@@ -23,7 +23,7 @@ const upload = multer({
 // Create a new place
 placeRouter.post(
   "/",
-//   authenticate,
+  authenticate,
   upload.single("coverImage"),
   createPlace
 );
