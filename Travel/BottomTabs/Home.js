@@ -1,4 +1,4 @@
-import { , View, Text, SafeAreaView, Image, FlatList, ScrollView, TouchableOpacity } from 'react-native';
+import { View, Text, SafeAreaView, Image, FlatList, ScrollView, TouchableOpacity } from 'react-native';
 import React, { useLayoutEffect, useState, useEffect } from 'react';
 import { GooglePlacesAutocomplete } from "react-native-google-places-autocomplete";
 import { useNavigation } from '@react-navigation/native';
