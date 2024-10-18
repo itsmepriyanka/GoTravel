@@ -4,10 +4,15 @@ import userRouter from "./users/userRouter";
 import placeRouter from "./destination/placeRouter";
 import { listPlaces } from "./destination/placeController";
 import placeModel from "./destination/placeModel";
+import morgan from "morgan";
 
 const app = express();
 
+
+
 app.use(express.json());
+app.use(morgan("combined"));
+// app.use(express)
 app.get("/",(req,res,next)=>{
 
     res.json({message:"Welcome to travel api"});

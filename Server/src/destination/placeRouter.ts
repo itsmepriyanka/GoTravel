@@ -8,6 +8,7 @@ import {
   listPlaces,
   getSinglePlace,
   deletePlace,
+  getSimilaritiesPlaces,
 } from "./placeController";
 
 const placeRouter = express.Router();
@@ -39,6 +40,7 @@ placeRouter.patch(
 // Get a list of places
 placeRouter.get("/", listPlaces);
 
+placeRouter.post("/similar",getSimilaritiesPlaces)
 // Get a single place by ID
 placeRouter.get("/:placeId", getSinglePlace);
 

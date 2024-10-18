@@ -35,26 +35,31 @@ const styles = StyleSheet.create({
     borderRadius: 8,
   },
   searchContainer: {
+    margin: 20,
+    borderColor:'grey',
+  },
+  searchBar: {
     flexDirection: 'row',
     alignItems: 'center',
-    backgroundColor: 'white',
-    marginHorizontal: 16,
-    borderRadius: 12,
-    paddingVertical: 4,
-    paddingHorizontal: 16,
-    marginTop: 16,
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.25,
-    shadowRadius: 3.84,
-    elevation: 5,
+    backgroundColor: '#f1f1f1',
+    borderRadius: 8,
+    paddingHorizontal: 10,
+    height: 40,
+  },
+  searchIcon: {
+    marginLeft: 10,
+  },
+  searchInput: {
+    flex: 1,
+    fontSize: 16,
   },
   categoryContainer: {
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
     paddingHorizontal: 15,  // Equivalent to px-8
-    marginTop: 15,          // Equivalent to mt-8
+    marginTop: 15,     
+    marginBottom:15     // Equivalent to mt-8
   },  
   listContent: {
     paddingHorizontal: 16,

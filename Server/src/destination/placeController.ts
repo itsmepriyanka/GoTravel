@@ -5,12 +5,13 @@ import { Request, Response, NextFunction } from "express";
 import cloudinary from "../config/cloudinary";
 import createHttpError from "http-errors";
 import placeModel from "./placeModel";
+import { cosineSimilarity, tfIdf } from '../helper/CosineSimilarities';
 
 
 
 
 const createPlace = async (req: Request, res: Response, next: NextFunction) => {
-    const { title, category, description } = req.body;   
+    const { title, category, description, location } = req.body;   
 
     const file = req.file as Express.Multer.File;
     const coverImageMimeType = file.mimetype.split("/").at(-1);
@@ -32,6 +33,7 @@ const createPlace = async (req: Request, res: Response, next: NextFunction) => {
             title,
             category,
             description,
+            location,
             agency: _req.userId,
             coverImage: uploadResult.secure_url,
         });
@@ -44,10 +46,6 @@ const createPlace = async (req: Request, res: Response, next: NextFunction) => {
         return next(createHttpError(500, "Error while uploading the file."));
     }
 };
-
-
-
-
 
 const updatePlace = async (req: Request, res: Response, next: NextFunction) => {
     const { title, category, description, location } = req.body;
@@ -96,9 +94,6 @@ const updatePlace = async (req: Request, res: Response, next: NextFunction) => {
     res.json(updatedPlace);
 };
 
-
-
-
 const listPlaces = async (req: Request, res: Response, next: NextFunction) => {
     try {
         const places = await placeModel.find();
@@ -107,8 +102,6 @@ const listPlaces = async (req: Request, res: Response, next: NextFunction) => {
         return next(createHttpError(500, "Error while fetching places"));
     }
 };
-
-
 
 const getSinglePlace = async (req: Request, res: Response, next: NextFunction) => {
     const placeId = req.params.placeId;
@@ -147,5 +140,41 @@ const deletePlace = async (req: Request, res: Response, next: NextFunction) => {
 
     return res.sendStatus(204);
 };
+
+export const getSimilaritiesPlaces = async(req:Request,res:Response,next:NextFunction)=>{
+
+    try {        
+    const {description} = req.body;
+    console.log("description",description)
+    if (!description) {
+        return res.status(400).json({ error: 'Description is required' });
+      }
+      const places = await placeModel.find();
+      const allDescriptions = places.map(place => place.description);
+      const tfidfVectors = tfIdf([...allDescriptions, description]); // Include the input description
+
+
+    // Calculate cosine similarities
+    const similarities = places.map((place, index) => {
+      const similarity = cosineSimilarity(
+        Object.values(tfidfVectors[index]),
+        Object.values(tfidfVectors[places.length]) // The input description vector is the last one
+      );
+      console.log("similar values",similarity)
+      return { place, similarity };
+    });
+
+// Sort places by similarity in descending order
+    similarities.sort((a, b) => b.similarity - a.similarity);
+
+    // Return the top 5 similar places
+    res.status(200)
+    return res.json({success:true,message:"fetched successfully.",data:similarities.slice(0, 5).map(({ place,similarity }) => ({place:place,similarityScore:Number(similarity).toFixed(2)}))});
+    } catch (err: unknown) {
+        console.log("err",err);
+        return next(createHttpError(500, "Error while fetching the similarities places."));
+        
+    }
+}
 
 export { createPlace, updatePlace, listPlaces, getSinglePlace, deletePlace };
