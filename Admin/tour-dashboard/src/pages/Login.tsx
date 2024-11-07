@@ -37,7 +37,7 @@ const LoginPage = () => {
                     </div>
                     <div className="mt-4 text-center text-sm">
                         Didn't have an account?{' '}
-                        <Link to={'/Register'} className="underline">
+                        <Link to={'/Auth/Register'} className="underline">
                             Sign up
                         </Link>
                     </div>
