@@ -3,8 +3,17 @@ import { Label } from '@/components/ui/label';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { Link } from 'react-router-dom';
+import { useRef } from 'react';
 
 const LoginPage = () => {
+    const emailRef = useRef<HTMLInputElement>(null);
+    const passRef = useRef<HTMLInputElement>(null);
+
+    const handleLoginSubmit = () => {
+        const email = emailRef.current?.value;
+        const password = passRef.current?.value;
+        console.log("data", { email, password });
+    };
     return (
         <section className='flex justify-center items-center h-screen'>
             <Card className="mx-auto max-w-sm">
@@ -19,6 +28,7 @@ const LoginPage = () => {
                         <div className="grid gap-2">
                             <Label htmlFor="email">Email</Label>
                             <Input
+                                ref={emailRef}
                                 id="email"
                                 type="email"
                                 placeholder="m@example.com"
@@ -29,9 +39,9 @@ const LoginPage = () => {
                             <div className="flex items-center">
                                 <Label htmlFor="password">Password</Label>
                             </div>
-                            <Input id="password" type="password" required />
+                            <Input ref={passRef} id="password" type="password" required />
                         </div>
-                        <Button type="submit" className="w-full">
+                        <Button onClick={handleLoginSubmit} type="submit" className="w-full">
                             Login
                         </Button>
                     </div>
