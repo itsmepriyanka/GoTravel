@@ -2,6 +2,7 @@ import { Card, CardHeader, CardTitle, CardDescription, CardContent } from '@/com
 import { Label } from '@/components/ui/label';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
+import { Link } from 'react-router-dom';
 
 const LoginPage = () => {
     return (
@@ -33,6 +34,12 @@ const LoginPage = () => {
                         <Button type="submit" className="w-full">
                             Login
                         </Button>
+                    </div>
+                    <div className="mt-4 text-center text-sm">
+                        Didn't have an account?{' '}
+                        <Link to={'/Register'} className="underline">
+                            Sign up
+                        </Link>
                     </div>
                 </CardContent>
             </Card>
