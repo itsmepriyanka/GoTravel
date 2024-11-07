@@ -28,9 +28,13 @@ export default function Home() {
   useEffect(() => {
     // Fetch all places on initial load or when the component is focused
     // const baseUrl = "http://10.0.2.2:5513/api"
+    console.log(config.baseUrl);
     fetch(`${config.baseUrl}/places`)
-      .then((res) => res.json())
+      .then((res) => res.json()
+      
+    )
       .then((data) => {
+        // console.log(data);
         setPlaces(data);
         if (!isSearching) {
           setPlaceLocation(data); // Set initial data
@@ -104,7 +108,6 @@ export default function Home() {
       ) : (
 
         <>
-        {/* <ScrollView> */}
           <ScrollView horizontal showsHorizontalScrollIndicator={false}>
             <View style={styles.categoryContainer}>
               <MenuContainer key="beaches" title="beach" imageSrc={beaches} type={type} setType={setType} />
@@ -115,14 +118,14 @@ export default function Home() {
               <MenuContainer key="religious" title="religious" imageSrc={religious} type={type} setType={setType} />
             </View>
           </ScrollView>
-
-       
-          {/* </ScrollView> */}
+                 
           <View>
             <Text style={{ color: "#2C7379", fontSize: 25, fontWeight: '500', marginLeft: 10 }}>
               Top Tips
             </Text>
           </View>
+
+
           <FlatList
             data={places}
             keyExtractor={(item) => item._id}
@@ -141,6 +144,8 @@ export default function Home() {
               </TouchableOpacity>
             )}
             contentContainerStyle={styles.listContent}
+            // ListFooterComponent={<View style={{ height: 100 }} />}
+
           />
           </>
       )}

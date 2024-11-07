@@ -62,22 +62,24 @@ const styles = StyleSheet.create({
     marginBottom:15     // Equivalent to mt-8
   },  
   listContent: {
-    paddingHorizontal: 16,
-    paddingVertical: 16,
+    paddingHorizontal: 50,
+    paddingBottom: 50,
   },
   card: {
+    flex:1,
     borderRadius: 12,
     borderColor: '#ccc',
     borderWidth: 1,
     backgroundColor: '#fff',
     width: 180,
-    margin: 8,
+    margin: 10,
     padding: 8,
     shadowColor: '#000',
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.1,
     shadowRadius: 3.84,
     elevation: 3,
+    // height: 220
   },
   cardImage: {
     width: '100%',

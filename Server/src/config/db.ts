@@ -5,9 +5,9 @@ import { config } from "./config";
 
 
 export const connectDB = async ()=>{
-try{
-
+try{   
     
+    await mongoose.connect(config.databaseURL as string);
     mongoose.connection.on('connected',()=>{
         console.log('connected successfully to database');
     });
@@ -15,7 +15,7 @@ try{
     mongoose.connection.on('error',(err)=>{
         console.log("error in connection database",err)
     });
-    await mongoose.connect(config.databaseURL as string);
+    console.log("Database URL:", config.databaseURL);
 
 }catch(err){
     console.error("Fail to connect to database.",err);
