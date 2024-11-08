@@ -6,6 +6,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useRef } from 'react';
 import { useMutation } from '@tanstack/react-query';
 import { login } from '@/http/api';
+import { Loader } from 'lucide-react';
 
 const LoginPage = () => {
     const navigate = useNavigate();
@@ -67,8 +68,9 @@ const LoginPage = () => {
                                 type="password"
                                 required />
                         </div>
-                        <Button onClick={handleLoginSubmit} type="submit" className="w-full">
-                            Login
+                        <Button onClick={handleLoginSubmit} type="submit" className="w-full" disabled={mutation.isPending}>
+                            {mutation.isPending && <Loader className='animate-spin' />}
+                            <span className='ml-2'>Login</span>
                         </Button>
                     </div>
                     <div className="mt-4 text-center text-sm">
