@@ -2,18 +2,40 @@ import { Card, CardHeader, CardTitle, CardDescription, CardContent } from '@/com
 import { Label } from '@/components/ui/label';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useRef } from 'react';
+import { useMutation } from '@tanstack/react-query';
+import { login } from '@/http/api';
 
 const LoginPage = () => {
+    const navigate = useNavigate();
+
     const emailRef = useRef<HTMLInputElement>(null);
     const passRef = useRef<HTMLInputElement>(null);
+
+
+    const mutation = useMutation({
+        mutationFn: login,
+        onSuccess: () => {
+            console.log("Login successful");
+            navigate('/dashboard/Home');
+
+        },
+    });
+
 
     const handleLoginSubmit = () => {
         const email = emailRef.current?.value;
         const password = passRef.current?.value;
         console.log("data", { email, password });
+
+        if (!email || !password) {
+            return alert("Please enter email and password");
+        }
+        mutation.mutate({ email, password });
+
     };
+
     return (
         <section className='flex justify-center items-center h-screen'>
             <Card className="mx-auto max-w-sm">
@@ -39,7 +61,11 @@ const LoginPage = () => {
                             <div className="flex items-center">
                                 <Label htmlFor="password">Password</Label>
                             </div>
-                            <Input ref={passRef} id="password" type="password" required />
+                            <Input
+                                ref={passRef}
+                                id="password"
+                                type="password"
+                                required />
                         </div>
                         <Button onClick={handleLoginSubmit} type="submit" className="w-full">
                             Login
